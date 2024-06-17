@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>it.twinsbrains.training</groupId>
-    <artifactId>WeatherForecast</artifactId>
+    <artifactId>weather.forecast</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -15,15 +15,44 @@
         <maven-checkstyle-plugin.version>3.2.0</maven-checkstyle-plugin.version>
         <spotless.version>2.28.0</spotless.version>
         <java.version>21</java.version>
+
+        <!-- Testing -->
+        <jmh.version>1.35</jmh.version>
         <junit.version>5.9.2</junit.version>
         <junit-platform.version>1.9.2</junit-platform.version>
         <spotless-google-format.version>1.15.0</spotless-google-format.version>
         <hamcrest.version>2.2</hamcrest.version>
-        <jmh.version>1.35</jmh.version>
         <mockito.version>5.12.0</mockito.version>
+
+        <!-- Spring Boot -->
+        <start-class>dojo.weather.forecast.Application</start-class>
+        <spring-boot.version>3.3.0</spring-boot.version>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <!-- Import dependency management from Spring Boot -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest</artifactId>
@@ -82,7 +111,27 @@
     </dependencies>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot.version}</version>
+                    <configuration>
+                        <mainClass>${start-class}</mainClass>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
