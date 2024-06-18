@@ -1,4 +1,4 @@
-package dojo.weather.forecast;
+package dojo.weather.forecast.domain.models;
 
 import java.time.LocalDateTime;
 

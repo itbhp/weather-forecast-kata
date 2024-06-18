@@ -1,4 +1,4 @@
-package dojo.weather.forecast;
+package dojo.weather.forecast.adapters.out;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -13,6 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+
+import dojo.weather.forecast.domain.models.City;
+import dojo.weather.forecast.domain.models.Forecast;
+import dojo.weather.forecast.domain.services.WeatherService;
 
 
 @WebMvcTest(GetWeatherController.class)
