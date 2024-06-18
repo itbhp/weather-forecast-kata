@@ -1,6 +1,9 @@
 package dojo.weather.forecast;
 
-public record Forecast(double temperature, String city, GeoLocation geoLocation) {
+import java.time.LocalDateTime;
+
+
+public record Forecast(double temperature, String city, GeoLocation geoLocation, LocalDateTime time) {
 
 }
 
