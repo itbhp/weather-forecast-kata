@@ -30,7 +30,7 @@ class GetCurrentForecastIT {
 
     @Test
     void returns_not_found_on_not_existent_city_or_city_with_no_data() throws Exception {
-        given(weatherService.getForecast(new City("not_existent_city")))
+        given(weatherService.getForecast(City.of("not_existent_city")))
             .willReturn(Optional.empty());
 
         mockMvc.perform(
@@ -40,13 +40,12 @@ class GetCurrentForecastIT {
 
     @Test
     void returns_ok_when_forecast_found() throws Exception {
-        given(weatherService.getForecast(new City("Rome")))
+        given(weatherService.getForecast(City.of("Rome")))
             .willReturn(Optional.of(
                 new Forecast(
-                    34.00,
+                    LocalDateTime.parse("2024-06-18T12:00:00"), 34.00,
                     "Rome",
-                    null,
-                    LocalDateTime.parse("2024-06-18T12:00:00")
+                    null
                 )
             ));
 

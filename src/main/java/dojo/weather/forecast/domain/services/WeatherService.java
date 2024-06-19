@@ -9,9 +9,7 @@ import dojo.weather.forecast.domain.models.Forecast;
 
 
 @Service
-public class WeatherService {
+public interface WeatherService {
 
-    public Optional<Forecast> getForecast(City city) {
-        return Optional.empty();
-    }
+    Optional<Forecast> getForecast(City city);
 }

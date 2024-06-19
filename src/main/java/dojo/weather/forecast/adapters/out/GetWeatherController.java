@@ -23,7 +23,7 @@ public class GetWeatherController {
     public ResponseEntity<Forecast> getForecast(
         @RequestParam(name = "city") String cityString
     ) {
-        return weatherService.getForecast(new City(cityString))
+        return weatherService.getForecast(City.of(cityString))
             .map(ResponseEntity::ok)
             .orElseGet(() -> ResponseEntity.notFound().build());
     }
