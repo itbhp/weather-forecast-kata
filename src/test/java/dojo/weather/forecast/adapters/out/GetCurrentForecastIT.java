@@ -44,7 +44,7 @@ class GetCurrentForecastIT {
             .willReturn(Optional.of(
                 new Forecast(
                     LocalDateTime.parse("2024-06-18T12:00:00"), 34.00,
-                    "Rome",
+                    City.of("Rome"),
                     null
                 )
             ));

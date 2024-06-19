@@ -17,7 +17,7 @@ import dojo.weather.forecast.domain.models.Forecast;
 public class DefaultWeatherService implements WeatherService {
 
     private final Clock clock;
-    private final Map<String, List<Forecast>> forecastByCity;
+    private final Map<City, List<Forecast>> forecastByCity;
 
     public DefaultWeatherService(
         Clock clock,
@@ -33,15 +33,14 @@ public class DefaultWeatherService implements WeatherService {
 
     @Override
     public Optional<Forecast> getForecast(City city) {
-        OptionalDouble average = Optional.ofNullable(forecastByCity.get(city.name()))
+        OptionalDouble average = Optional.ofNullable(forecastByCity.get(city))
             .orElseGet(List::of)
             .stream()
             .filter(forecast -> forecast.time().isAfter(now().minusMinutes(10)))
             .mapToDouble(Forecast::temperature)
             .average();
         return average.stream()
-            .mapToObj(temperature -> Optional.of(Forecast.of(now(), temperature, city.name())))
-            .flatMap(Optional::stream)
+            .mapToObj(temperature -> Forecast.of(now(), temperature, city))
             .findFirst();
     }
 

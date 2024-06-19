@@ -31,7 +31,7 @@ class DefaultWeatherServiceTest {
             var service = new DefaultWeatherService(
                 fixedClock,
                 List.of(
-                    Forecast.of( LocalDateTime.parse("2024-06-18T12:00:00"), 34.00, "Rome")
+                    Forecast.of( LocalDateTime.parse("2024-06-18T12:00:00"), 34.00, City.of("Rome"))
                 )
             );
 
@@ -48,7 +48,7 @@ class DefaultWeatherServiceTest {
             var service = new DefaultWeatherService(
                 fixedClock,
                 List.of(
-                    Forecast.of(LocalDateTime.parse("2024-06-18T12:00:00"), 34.00, "Rome")
+                    Forecast.of(LocalDateTime.parse("2024-06-18T12:00:00"), 34.00, City.of("Rome"))
                 )
             );
 
@@ -57,20 +57,19 @@ class DefaultWeatherServiceTest {
 
             // then
             assertThat(forecast).isEqualTo(Optional.of(
-                Forecast.of(LocalDateTime.ofInstant(fixedClock.instant(), UTC), 34.00, "Rome")
+                Forecast.of(LocalDateTime.ofInstant(fixedClock.instant(), UTC), 34.00, City.of("Rome"))
             ));
         }
 
         @Test
         void returns_mean_forecast_in_the_last_10_minutes_for_recorded_city() {
             // given
-                Forecast.of(LocalDateTime.parse("2024-06-18T12:00:00"), 34.00, "Rome");
             var service = new DefaultWeatherService(
                 fixedClock,
                 List.of(
-                    Forecast.of(LocalDateTime.parse("2024-06-18T12:04:00"), 34.00, "Rome"),
-                    Forecast.of(LocalDateTime.parse("2024-06-18T12:03:00"), 36.00, "Rome"),
-                    Forecast.of(LocalDateTime.parse("2024-06-18T11:54:00"), 35.00, "Rome")
+                    Forecast.of(LocalDateTime.parse("2024-06-18T12:04:00"), 34.00, City.of("Rome")),
+                    Forecast.of(LocalDateTime.parse("2024-06-18T12:03:00"), 36.00, City.of("Rome")),
+                    Forecast.of(LocalDateTime.parse("2024-06-18T11:54:00"), 35.00, City.of("Rome"))
                 )
             );
 
@@ -79,7 +78,7 @@ class DefaultWeatherServiceTest {
 
             // then
             assertThat(forecast).isEqualTo(Optional.of(
-                Forecast.of(LocalDateTime.ofInstant(fixedClock.instant(), UTC), 35.00, "Rome")
+                Forecast.of(LocalDateTime.ofInstant(fixedClock.instant(), UTC), 35.00, City.of("Rome"))
             ));
         }
     }
