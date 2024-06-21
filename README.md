@@ -7,16 +7,15 @@ Create a REST service to collect weather temperature data from different cities.
 An example call to the service would be:
 
 ```http request
-POST /weather/measurement?city=London
+POST /weather/measurement
 
 {
     "location": { // optional
-       "lat": 51.5074,
-       "lon": 0.1278
+       "latitude": 51.5074,
+       "longitude": 0.1278
      },
     "city": "London",
     "temperature": 20.0,
-    "unit": "C",
     "timestamp": "2021-01-01T12:00:00Z"
 }
 ```

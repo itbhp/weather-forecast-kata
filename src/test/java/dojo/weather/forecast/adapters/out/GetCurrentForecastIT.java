@@ -53,16 +53,17 @@ class GetCurrentForecastIT {
             ));
 
         mockMvc.perform(
-            get("/weather/forecast?city=Rome")
-        ).andExpect(status().isOk())
-        .andExpect(content().json(
-            """
-            {
-                "temperature": 34.00,
-                "city": "Rome",
-                "time": "2024-06-18T12:00:00"
-            }
-            """
-        ));
+                get("/weather/forecast?city=Rome")
+            ).andExpect(status().isOk())
+            .andDo(result -> System.out.println(result.getResponse().getContentAsString()))
+            .andExpect(content().json(
+                """
+                    {
+                        "temperature": 34.00,
+                        "city": "Rome",
+                        "time": "2024-06-18T12:00:00"
+                    }
+                    """
+            ));
     }
 }

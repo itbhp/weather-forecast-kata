@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import dojo.weather.forecast.domain.models.City;
 import dojo.weather.forecast.domain.models.Forecast;
+import dojo.weather.forecast.domain.models.GeoLocation;
 
 
 public class DefaultWeatherService implements WeatherService {
@@ -42,6 +43,11 @@ public class DefaultWeatherService implements WeatherService {
         return average.stream()
             .mapToObj(temperature -> Forecast.of(now(), temperature, city))
             .findFirst();
+    }
+
+    @Override
+    public void addMeasurement(double temperature, City rome, LocalDateTime time, GeoLocation geoLocation) {
+        // TODO implement
     }
 
     private LocalDateTime now() {
