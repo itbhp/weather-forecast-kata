@@ -10,7 +10,8 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -19,7 +20,8 @@ import dojo.weather.forecast.domain.models.Forecast;
 import dojo.weather.forecast.domain.services.WeatherService;
 
 
-@WebMvcTest(GetWeatherController.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 class GetCurrentForecastIT {
 
     @Autowired
@@ -35,7 +37,7 @@ class GetCurrentForecastIT {
 
         mockMvc.perform(
             get("/weather/forecast?city=not_existent_city")
-            ).andExpect(status().isNotFound());
+        ).andExpect(status().isNotFound());
     }
 
     @Test
@@ -43,7 +45,8 @@ class GetCurrentForecastIT {
         given(weatherService.getForecast(City.of("Rome")))
             .willReturn(Optional.of(
                 new Forecast(
-                    LocalDateTime.parse("2024-06-18T12:00:00"), 34.00,
+                    LocalDateTime.parse("2024-06-18T12:00:00"),
+                    34.00,
                     City.of("Rome"),
                     null
                 )

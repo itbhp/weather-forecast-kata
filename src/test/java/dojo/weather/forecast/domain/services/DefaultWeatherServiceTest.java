@@ -22,7 +22,7 @@ class DefaultWeatherServiceTest {
     @Nested
     class GetForecast {
 
-        public static final ZoneId UTC = ZoneId.of("UTC");
+        private static final ZoneId UTC = ZoneId.of("UTC");
         private final Clock fixedClock = fixed(parse("2024-06-18T12:05:00Z"), ZoneId.of("UTC"));
 
         @Test

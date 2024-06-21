@@ -11,11 +11,11 @@ import dojo.weather.forecast.domain.services.WeatherService;
 
 
 @RestController
-public class GetWeatherController {
+public class GetWeatherForecastController {
 
     private final WeatherService weatherService;
 
-    public GetWeatherController(WeatherService weatherService) {
+    public GetWeatherForecastController(WeatherService weatherService) {
         this.weatherService = weatherService;
     }
 
