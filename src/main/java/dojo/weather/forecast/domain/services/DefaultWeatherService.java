@@ -4,6 +4,7 @@ import static java.util.stream.Collectors.groupingBy;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -28,8 +29,11 @@ public class DefaultWeatherService implements WeatherService {
         this.forecastByCity = forecastList
             .stream()
             .collect(
-                groupingBy(Forecast::city, Collectors.toList())
+                groupingBy(Forecast::city,
+                    Collectors.toCollection(ArrayList::new)
+                )
             );
+
     }
 
     @Override
@@ -47,7 +51,8 @@ public class DefaultWeatherService implements WeatherService {
 
     @Override
     public void addMeasurement(double temperature, City rome, LocalDateTime time, GeoLocation geoLocation) {
-        // TODO implement
+        forecastByCity.computeIfAbsent(rome, city -> new ArrayList<>())
+            .add(Forecast.of(time, temperature, rome));
     }
 
     private LocalDateTime now() {
