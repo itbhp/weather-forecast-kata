@@ -30,7 +30,7 @@ public class DefaultWeatherService implements WeatherService {
             .stream()
             .collect(
                 groupingBy(Forecast::city,
-                    Collectors.toCollection(ArrayList::new)
+                    Collectors.toCollection(ArrayList::new) // to have a mutable list
                 )
             );
 
