@@ -15,7 +15,6 @@ import dojo.weather.forecast.domain.models.City;
 import dojo.weather.forecast.domain.models.Forecast;
 import dojo.weather.forecast.domain.models.GeoLocation;
 
-
 public class DefaultWeatherService implements WeatherService {
 
     private final Clock clock;
@@ -33,7 +32,6 @@ public class DefaultWeatherService implements WeatherService {
                     Collectors.toCollection(ArrayList::new) // to have a mutable list
                 )
             );
-
     }
 
     @Override
