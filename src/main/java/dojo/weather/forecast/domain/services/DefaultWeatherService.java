@@ -1,5 +1,7 @@
 package dojo.weather.forecast.domain.services;
 
+import static dojo.weather.forecast.ClockExtension.isInTheLastTenMinutes;
+import static dojo.weather.forecast.ClockExtension.now;
 import static java.util.stream.Collectors.groupingBy;
 
 import java.time.Clock;
@@ -39,22 +41,18 @@ public class DefaultWeatherService implements WeatherService {
         OptionalDouble average = Optional.ofNullable(forecastByCity.get(city))
             .orElseGet(List::of)
             .stream()
-            .filter(forecast -> forecast.time().isAfter(now().minusMinutes(10)))
+            .filter(forecast -> isInTheLastTenMinutes(clock, forecast.time()))
             .mapToDouble(Forecast::temperature)
             .average();
         return average.stream()
-            .mapToObj(temperature -> Forecast.of(now(), temperature, city))
+            .mapToObj(temperature -> Forecast.of(now(clock), temperature, city))
             .findFirst();
     }
 
     @Override
-    public void addMeasurement(double temperature, City rome, LocalDateTime time, GeoLocation geoLocation) {
-        forecastByCity.computeIfAbsent(rome, city -> new ArrayList<>())
-            .add(Forecast.of(time, temperature, rome));
-    }
-
-    private LocalDateTime now() {
-        return LocalDateTime.ofInstant(clock.instant(), clock.getZone());
+    public void addMeasurement(double temperature, City city, LocalDateTime time, GeoLocation geoLocation) {
+        forecastByCity.computeIfAbsent(city, anyCity -> new ArrayList<>())
+            .add(Forecast.of(time, temperature, city));
     }
 
 }

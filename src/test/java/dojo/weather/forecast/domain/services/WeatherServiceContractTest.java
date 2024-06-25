@@ -28,7 +28,7 @@ public abstract class WeatherServiceContractTest {
         @Test
         void adds_measurement() {
             // given
-            var clockInstant = "2024-06-18T12:05:00Z";
+            var clockInstant = "2024-06-18T12:00:00Z";
             var clock = fixed(parse(clockInstant), of("UTC"));
             var service = weatherServiceWithClock(clock);
 
@@ -71,7 +71,7 @@ public abstract class WeatherServiceContractTest {
         @Test
         void returns_forecast_for_recorded_city() {
             // given
-            var clock = fixed(parse("2024-06-18T12:05:00Z"), of("UTC"));
+            var clock = fixed(parse("2024-06-18T12:00:00Z"), of("UTC"));
             var service = weatherServiceWithClockAndPreviousForecast(clock, List.of(
                 Forecast.of(LocalDateTime.parse("2024-06-18T12:00:00"), 34.00, City.of("Rome"))
             ));

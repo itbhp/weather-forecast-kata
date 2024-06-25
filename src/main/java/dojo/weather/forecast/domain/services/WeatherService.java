@@ -15,5 +15,5 @@ public interface WeatherService {
 
     Optional<Forecast> getForecast(City city);
 
-    void addMeasurement(double temperature, City rome, LocalDateTime time, GeoLocation geoLocation);
+    void addMeasurement(double temperature, City city, LocalDateTime time, GeoLocation geoLocation);
 }
