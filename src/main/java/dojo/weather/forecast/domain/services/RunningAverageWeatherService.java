@@ -1,25 +1,25 @@
 package dojo.weather.forecast.domain.services;
 
-import static dojo.weather.forecast.ClockExtension.isInTheLastTenMinutes;
-import static dojo.weather.forecast.ClockExtension.now;
-
-import java.time.Clock;
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.OptionalDouble;
-import java.util.stream.Stream;
-
 import dojo.weather.forecast.domain.models.City;
 import dojo.weather.forecast.domain.models.Forecast;
 import dojo.weather.forecast.domain.models.GeoLocation;
 
+import java.time.Clock;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.OptionalDouble;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Stream;
+
+import static dojo.weather.forecast.ClockExtension.isInTheLastTenMinutes;
+import static dojo.weather.forecast.ClockExtension.now;
+
 
 public class RunningAverageWeatherService implements WeatherService {
 
-    private final Map<City, Forecast> forecastMap = new HashMap<>();
+    private final Map<City, Forecast> forecastMap = new ConcurrentHashMap<>();
     private final Clock clock;
 
     public RunningAverageWeatherService(Clock clock, List<Forecast> forecastList) {
