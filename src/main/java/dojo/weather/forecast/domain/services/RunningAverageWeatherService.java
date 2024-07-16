@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.OptionalDouble;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 
@@ -41,8 +40,8 @@ public class RunningAverageWeatherService implements WeatherService {
 
     private void updateCityForeCast(Clock clock, Forecast forecast) {
         if (forecastMap.containsKey(forecast.city())) {
-            Forecast existingForecast = forecastMap.get(forecast.city());
-            OptionalDouble average = Stream.of(existingForecast, forecast)
+            var existingForecast = forecastMap.get(forecast.city());
+            var average = Stream.of(existingForecast, forecast)
                 .filter(currentForecast ->
                     isInTheLastTenMinutes(clock, currentForecast.time())
                 )
